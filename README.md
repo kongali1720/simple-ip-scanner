@@ -18,20 +18,24 @@ python simple_ip_scanner.py <start_ip> <end_ip>
 
 git clone https://github.com/kongali1720/simple-ip-scanner.git
 cd simple-ip-scanner
-python simple_ip_scanner.py 192.168.1.1 192.168.1.20
+python3 -m venv venv
+source venv/bin/activate
+python simple_ip_scanner.py 192.168.1.1 1 1000 50
+
+Dengan mengikuti langkah-langkah ini, kontribusimu akan lebih mudah diintegrasikan ke dalam project.
+Lisensi
+
+Distributed under the MIT License. See LICENSE for more information.
+Kontak
+
+- **Nama**: Kongali1720
+- **Email**: [kongali1720@gmail.com](mailto:kongali1720@gmail.com)
+- **GitHub**: [https://github.com/kongali1720](https://github.com/kongali1720)
 
 ## ☕ Dukungan
 
-Jika kamu merasa proyek ini bermanfaat dan ingin mendukung pengembangan lebih lanjut, kamu bisa mentransfer sedikit dukungan melalui PayPal:
+Jika kamu merasa project ini bermanfaat dan ingin mendukung pengembangan lebih lanjut, kamu bisa mentransfer sedikit dukungan melalui PayPal:
 
-[Buy Me a Coffee via PayPal](https://www.paypal.com/paypalme/bungtempong99)
+[**Buy Me a Coffee**](https://www.paypal.me/bungtempong99)
 
-## Lisensi
-
-Distributed under the MIT License. See LICENSE for more information.
-
-## Kontak
-
-- **Nama**: Kongali1720  
-- **Email**: [kongali1720@gmail.com](mailto:kongali1720@gmail.com)  
-- **GitHub**: [https://github.com/kongali1720](https://github.com/kongali1720)
+Terima kasih atas dukungannya!
