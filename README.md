@@ -13,6 +13,10 @@ Contoh:
 ```bash
 python simple_ip_scanner.py 192.168.1.1 1 1000 50
 ```
+> ⚠️ **Disclaimer:**  
+> Contoh IP seperti `192.168.1.1` adalah alamat IP privat yang hanya berlaku di jaringan lokal (LAN).  
+> Scanner ini **tidak** bisa digunakan untuk memindai jaringan publik tanpa izin.  
+> Gunakan tool ini hanya untuk tujuan pembelajaran dan pengujian di lingkungan yang kamu miliki atau punya izin eksplisit.
 
 ## ✨ Fitur
 
