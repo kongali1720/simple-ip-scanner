@@ -1,35 +1,45 @@
-#!/usr/bin/env python3
-"""
-Simple IP Scanner
-Scan IP range dan cek IP aktif dengan ping.
-"""
+import socket
+from concurrent.futures import ThreadPoolExecutor
+import sys
 
-import subprocess
-import platform
-import threading
+def scan_port(ip, port):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(0.5)
+        result = sock.connect_ex((ip, port))
+        sock.close()
+        return port if result == 0 else None
+    except:
+        return None
 
-def ping_ip(ip):
-    param = '-n' if platform.system().lower() == 'windows' else '-c'
-    command = ['ping', param, '1', ip]
-    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if result.returncode == 0:
-        print(f"{ip} is active")
+def scan_ip(ip, start_port, end_port, max_threads=50):
+    open_ports = []
+    with ThreadPoolExecutor(max_workers=max_threads) as executor:
+        futures = [executor.submit(scan_port, ip, port) for port in range(start_port, end_port + 1)]
+        for future in futures:
+            port = future.result()
+            if port:
+                open_ports.append(port)
+    return open_ports
 
-def scan_range(start_ip, end_ip):
-    start = int(start_ip.split('.')[-1])
-    base = '.'.join(start_ip.split('.')[:-1]) + '.'
-    threads = []
-    for i in range(start, end_ip + 1):
-        ip = base + str(i)
-        t = threading.Thread(target=ping_ip, args=(ip,))
-        threads.append(t)
-        t.start()
+def main():
+    if len(sys.argv) < 4:
+        print(f"Usage: python {sys.argv[0]} <ip> <start_port> <end_port> [max_threads]")
+        sys.exit(1)
 
-    for t in threads:
-        t.join()
+    ip = sys.argv[1]
+    start_port = int(sys.argv[2])
+    end_port = int(sys.argv[3])
+    max_threads = int(sys.argv[4]) if len(sys.argv) > 4 else 50
+
+    print(f"Scanning {ip} from port {start_port} to {end_port} with {max_threads} threads...")
+
+    open_ports = scan_ip(ip, start_port, end_port, max_threads)
+
+    if open_ports:
+        print(f"Open ports on {ip}: {', '.join(map(str, open_ports))}")
+    else:
+        print(f"No open ports found on {ip}.")
 
 if __name__ == "__main__":
-    print("Simple IP Scanner by Kongali1720")
-    start_ip = input("Start IP (e.g. 192.168.1.1): ")
-    end_last = int(input("End IP last number (e.g. 254): "))
-    scan_range(start_ip, end_last)
+    main()
